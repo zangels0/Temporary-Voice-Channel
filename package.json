@@ -1,0 +1,21 @@
+{
+  "name": "temporary-voice-channel",
+  "version": "1.0.0",
+  "description": "A comprehensive Node.js project designed to facilitate the seamless management of temporary voice channels within Discord communities. Leveraging the power of Discord.js for efficient interaction with the Discord API and Express for a robust backend, this project empowers server administrators to dynamically create, modify, and delete temporary voice channels. The integration of better-sqlite3 ensures reliable and performant data storage, while chalk adds a touch of color to the console logs. The combination of these technologies creates a versatile solution for enhancing the voice channel experience in Discord servers.",
+  "main": "Index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "keywords": {},
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^9.4.3",
+    "chalk": "4",
+    "discord.js": "^14.14.1",
+    "express": "^4.18.2",
+    "pro.db": "^3.0.8",
+    "quick.db": "^9.1.7"
+  }
+}
