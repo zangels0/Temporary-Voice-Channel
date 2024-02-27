@@ -8,7 +8,7 @@
     "start": "node ."
   },
   "keywords": {},
-  "author": "",
+  "author": "zangels0",
   "license": "MIT",
   "dependencies": {
     "better-sqlite3": "^9.4.3",
