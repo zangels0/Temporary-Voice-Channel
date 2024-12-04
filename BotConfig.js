@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = {
   Token: process.env.Token || "",
   Prefix: process.env.Prefix || "",
