@@ -12,6 +12,7 @@ const {
   TextInputBuilder,
   TextInputStyle,
   UserSelectMenuBuilder,
+  MessageFlags,
 } = require("discord.js");
 const chalk = require("chalk");
 const db = require("pro.db");
@@ -400,12 +401,12 @@ client.on("voiceStateUpdate", async (OldVoice, NewVoice) => {
 
 client.on("interactionCreate", async (Interaction) => {
   if (
-    !Interaction.member.voice.parrent.id == BotConfig.CategoryId1 ||
-    !Interaction.member.voice.parrent.id == BotConfig.CategoryId2
+    !Interaction.member.voice.parent?.id == BotConfig.CategoryId1 ||
+    !Interaction.member.voice.parent?.id == BotConfig.CategoryId2
   ) {
     return Interaction.reply({
       content: `### You can't use this Component in this Channel`,
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
   if (Interaction.isButton()) {
@@ -413,14 +414,14 @@ client.on("interactionCreate", async (Interaction) => {
     if (!Channel) {
       return Interaction.reply({
         content: `You are not in voice channel.`,
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     }
     const Data = db.get(`Temporary_${Channel.id}_${Interaction.user.id}`);
     if (Data !== Channel.id) {
       return Interaction.reply({
         content: `You are not a owner if the temporary channel`,
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     }
     switch (Interaction.customId) {
@@ -553,7 +554,7 @@ client.on("interactionCreate", async (Interaction) => {
           Interaction.reply({
             content: `_ _`,
             components: [Row],
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
         }
         break;
@@ -584,7 +585,7 @@ client.on("interactionCreate", async (Interaction) => {
           Interaction.reply({
             content: "_ _",
             components: [Row],
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
         }
         break;
@@ -652,7 +653,7 @@ client.on("interactionCreate", async (Interaction) => {
 
         Interaction.reply({
           embeds: [sendembed],
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
       }
       /////////////
@@ -662,13 +663,13 @@ client.on("interactionCreate", async (Interaction) => {
     if (!Channel)
       return Interaction.reply({
         content: `You are not in voice channel.`,
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     const Data = db.get(`Temporary_${Channel.id}_${Interaction.user.id}`);
     if (Data !== Channel.id)
       return Interaction.reply({
         content: `You are not a owner if the temporary channel`,
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     if (Interaction.customId == "Menu") {
       await Interaction.deferUpdate().catch(() => {});
@@ -696,33 +697,33 @@ client.on("interactionCreate", async (Interaction) => {
     if (!Channel)
       return Interaction.reply({
         content: `You are not in voice channel.`,
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     const Data = db.get(`Temporary_${Channel.id}_${Interaction.user.id}`);
     if (Data !== Channel.id)
       return Interaction.reply({
         content: `You are not a owner if the temporary channel`,
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     if (Interaction.customId == "RenameModal") {
       const Name = Interaction.fields.getTextInputValue("Name");
       await Channel.setName(Name);
       Interaction.reply({
         content: `The channel has been successfully changed.`,
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     } else if (Interaction.customId == "Customize_UsersLimit") {
       const Number = Interaction.fields.getTextInputValue("The_Number");
       if (Channel.userLimit == Number)
         return Interaction.reply({
           content: `The users limit is already \`${Number}\``,
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
       Interaction.reply({
         content: `The users limit has been changed from \`${
           Channel.userLimit || "0"
         }\` to \`${Number}\``,
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
       await Channel.setUserLimit(Number);
     } else if (Interaction.customId == "BitrateModal") {
@@ -731,22 +732,22 @@ client.on("interactionCreate", async (Interaction) => {
       if (br > 96)
         return Interaction.reply({
           content: `The bitrate must be less than 96kbps.`,
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
       if (br < 8 && br > 0)
         return Interaction.reply({
           content: `The bitrate must be more than 8kbps.`,
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
       if (br < 0)
         return Interaction.reply({
           content: `The bitrate must be more than 0kbps.`,
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
       await Channel.setBitrate(br * 1000);
       Interaction.reply({
         content: `The channel bitrate has been successfully changed to ${Bitrate}kbps.`,
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     }
   }
@@ -756,12 +757,12 @@ client.on("interactionCreate", async (Interaction) => {
 
 client.on("interactionCreate", async (Interaction) => {
   if (
-    !Interaction.member.voice.parrent.id == BotConfig.CategoryId1 ||
-    !Interaction.member.voice.parrent.id == BotConfig.CategoryId2
+    !Interaction.member.voice.parent?.id == BotConfig.CategoryId1 ||
+    !Interaction.member.voice.parent?.id == BotConfig.CategoryId2
   ) {
     return Interaction.reply({
       content: `### You can't use this Component in this Channel`,
-      ephemeral: true,
+      flags: [MessageFlags.Ephemeral],
     });
   }
   if (Interaction.isButton()) {
@@ -769,13 +770,13 @@ client.on("interactionCreate", async (Interaction) => {
     if (!Channel)
       return Interaction.reply({
         content: `You are not in voice channel.`,
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     const Data = db.get(`Temporary_${Channel.id}_${Interaction.user.id}`);
     if (Data !== Channel.id)
       return Interaction.reply({
         content: `You are not a owner if the temporary channel`,
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     switch (Interaction.customId) {
       case "UsersManager_Mute":
@@ -789,7 +790,7 @@ client.on("interactionCreate", async (Interaction) => {
           Interaction.reply({
             content: "_ _",
             components: [Row],
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
         }
         break;
@@ -804,7 +805,7 @@ client.on("interactionCreate", async (Interaction) => {
           Interaction.reply({
             content: "_ _",
             components: [Row],
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
         }
         break;
@@ -819,7 +820,7 @@ client.on("interactionCreate", async (Interaction) => {
           Interaction.reply({
             content: "_ _",
             components: [Row],
-            ephemeral: true,
+            flags: [MessageFlags.Ephemeral],
           });
         }
         break;
@@ -833,7 +834,7 @@ client.on("interactionCreate", async (Interaction) => {
         Interaction.reply({
           content: "_ _",
           components: [Row],
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
         });
       }
     }
@@ -842,13 +843,13 @@ client.on("interactionCreate", async (Interaction) => {
     if (!Channel)
       return Interaction.reply({
         content: `You are not in voice channel.`,
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     const Data = db.get(`Temporary_${Channel.id}_${Interaction.user.id}`);
     if (Data !== Channel.id)
       return Interaction.reply({
         content: `You are not a owner if the temporary channel`,
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral],
       });
     switch (Interaction.customId) {
       case "UserManager_Mute":
@@ -900,12 +901,15 @@ client.on("interactionCreate", async (Interaction) => {
 client.login(BotConfig.Token).catch(() => {
   console.log(chalk.red("The Token is not valid"));
 });
-process.on("uncaughtException", async () => {
-  return;
+process.on("uncaughtException", async (err) => {
+  console.log(chalk.red("[ Uncaught Exception ]"));
+  console.error(err);
 });
-process.on("uncaughtExceptionMonitor", async () => {
-  return;
+process.on("uncaughtExceptionMonitor", async (err) => {
+  console.log(chalk.red("[ Uncaught Exception ]"));
+  console.error(err);
 });
-process.on("unhandledRejection", async () => {
-  return;
+process.on("unhandledRejection", async (err) => {
+  console.log(chalk.red("[ Unhandled Rejection "));
+  console.error(err);
 });
